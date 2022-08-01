@@ -9,7 +9,7 @@ export default function ForgotPassword() {
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useNavigate();
+  /* const history = useNavigate(); */
 
   async function handleSubmit(e) {
     e.preventDefault();

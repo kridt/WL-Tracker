@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
     if (!currentUser) {
       navigate("/login", { replace: true });
     }
-  }, []);
+  }, [currentUser, navigate]);
 
   return (
     <>

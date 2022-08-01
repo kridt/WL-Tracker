@@ -17,7 +17,7 @@ export default function Login() {
     } else {
       history("/");
     }
-  }, []);
+  }, [currentUser, history]);
 
   async function handleSubmit(e) {
     e.preventDefault();
