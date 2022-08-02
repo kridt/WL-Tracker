@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import "./SignUp.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { firestoreDb } from "../firebase";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function SignUp() {
   const emailRef = useRef();
@@ -13,6 +14,7 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -23,20 +25,24 @@ export default function SignUp() {
     try {
       setError("");
       setLoading(true);
-      await signUp(emailRef.current.value, passwordRef.current.value);
-      firestoreDb.collection("users").doc(currentUser.uid).set({
-        onlineId: onlineIdRef.current.value,
-      });
+      await signUp(
+        emailRef.current.value,
+        passwordRef.current.value,
+        onlineIdRef.current.value
+      );
+
       history("/");
     } catch {
-      setError("Der skete en fejl");
+      setError("Der skete en fejl i auth");
     }
+
     setLoading(false);
   }
 
   return (
     <div className="signUpDoc">
       <h2>Opret profil</h2>
+      <LoadingOverlay show={loading} />
       {error && alert(error)}
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
