@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
     return auth.createUserWithEmailAndPassword(email, password).then((e) => {
       firestoreDb.collection("users").doc(e.user.uid).set({
         onlineId: displayName,
+        data: {},
       });
     });
   }
