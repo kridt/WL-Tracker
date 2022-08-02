@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./SignUp.scss";
 import { Link, useNavigate } from "react-router-dom";
+import WeekNumber from "../components/WeekNumber";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function Login() {
   const emailRef = useRef();
@@ -35,6 +37,7 @@ export default function Login() {
 
   return (
     <div className="signUpDoc">
+      <LoadingOverlay show={loading} />
       <h2>Log ind</h2>
       {error && alert(error)}
       <form onSubmit={(e) => handleSubmit(e)}>

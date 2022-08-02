@@ -1,33 +1,18 @@
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import React from "react";
+import Nav from "../components/Nav";
+import AllUserInfo from "../functions/AllUserInfo";
+import "./Dashboard.scss";
 
 export default function Dashboard() {
-  const [error, setError] = useState("");
-  const { currentUser, logOut } = useAuth();
-  /* const history = useNavigate(); */
+  const allUserData = AllUserInfo();
 
-  async function handleLogout() {
-    setError("");
-
-    try {
-      await logOut();
-      window.location.reload();
-      /* history("/login"); */
-    } catch {
-      setError("Noget gik galt, prøv igen senere");
-      alert(error);
-    }
-  }
+  console.log(allUserData);
 
   return (
-    <div>
-      <h1>Wellcome to your Dashboard</h1>
-      <div>
-        <p>Email:{currentUser?.email}</p>
-      </div>
-      <Link to="/updateProfile">Opdater profil</Link>
-      <button onClick={handleLogout}>Log ud</button>
+    <div className="dashboard">
+      <Nav />
+      <h1>Nuværende Weekend Liga</h1>
+      <div></div>
     </div>
   );
 }

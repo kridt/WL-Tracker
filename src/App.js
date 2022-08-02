@@ -7,6 +7,8 @@ import Login from "./functions/Login";
 import ProtectedRoute from "./components/PrivateRoute";
 import ForgotPassword from "./functions/ForgotPassword";
 import UpdateProfile from "./functions/UpdateProfile";
+import Profile from "./page/Profile";
+import AllWls from "./page/AllWls";
 
 function App() {
   return (
@@ -19,6 +21,12 @@ function App() {
             </Route>
             <Route element={<ProtectedRoute />}>
               <Route path="/updateProfile" element={<UpdateProfile />} />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/allwls" element={<AllWls />} />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profil" element={<Profile />} />
             </Route>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />

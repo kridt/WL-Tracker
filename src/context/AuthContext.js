@@ -12,10 +12,15 @@ export function AuthProvider({ children }) {
 
   function signUp(email, password, displayName) {
     return auth.createUserWithEmailAndPassword(email, password).then((e) => {
-      firestoreDb.collection("users").doc(e.user.uid).set({
-        onlineId: displayName,
-        data: {},
-      });
+      firestoreDb
+        .collection("users")
+        .doc(e.user.uid)
+        .set({
+          onlineId: displayName,
+          data: {
+            wlResults: [],
+          },
+        });
     });
   }
 
