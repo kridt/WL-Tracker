@@ -2,13 +2,14 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./SignUp.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { firestoreDb } from "../firebase";
 
 export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const onlineIdRef = useRef();
-  const { signUp } = useAuth();
+  const { signUp, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
@@ -23,6 +24,9 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
+      firestoreDb.collection("users").doc(currentUser.uid).set({
+        onlineId: onlineIdRef.current.value,
+      });
       history("/");
     } catch {
       setError("Der skete en fejl");
@@ -47,7 +51,7 @@ export default function SignUp() {
         <div>
           <input
             ref={emailRef}
-            type={"text"}
+            type={"email"}
             name="email"
             placeholder="Din email"
             required
