@@ -16,7 +16,7 @@ export default function AddMatch() {
             type="tel"
             name="goalsFor"
             maxLength={2}
-            defaultValue={0}
+            placeholder={0}
           />
           <label htmlFor="goals">Mål</label>
           <input
@@ -24,28 +24,26 @@ export default function AddMatch() {
             type="tel"
             name="goalsAgains"
             maxLength={2}
-            defaultValue={0}
+            placeholder={0}
           />
         </div>
         <div>
-          {/* <input
+          <input
             name="ballPossesion"
             type={"tel"}
             maxLength={2}
             onChange={(e) => setBallP(e.target.value)}
             defaultValue={50}
-          /> */}
-          <p>{100 - ballP}</p>
+          />
+          {/* <p>{100 - ballP}</p> */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              position: "absolute",
-              left: "9.5em",
             }}
           >
             <label>Boldbesiddelse %</label>
-            <input
+            {/* <input
               style={{ width: "100%" }}
               type={"range"}
               min={25}
@@ -53,9 +51,9 @@ export default function AddMatch() {
               onChange={(e) => {
                 setBallP(e.target.value);
               }}
-            />
+            /> */}
           </div>
-          <p>{ballP}</p>
+          <p>{100 - ballP}</p>
         </div>
       </form>
     </div>
