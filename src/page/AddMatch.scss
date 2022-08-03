@@ -1,13 +1,14 @@
 .addMatch {
   form {
     margin: 0 3em;
-    div {
+    div,
+    .advanStats {
       display: flex;
       align-items: center;
       justify-content: space-between;
       p {
-        width: 30px;
-        height: 30px;
+        width: 36px;
+        height: 36px;
         text-align: center;
       }
       input {
@@ -21,4 +22,14 @@
       }
     }
   }
+}
+
+.overlay {
+  height: 255px;
+  width: 300px;
+  background-color: #25282f;
+  position: absolute;
+  left: 3.3em;
+  opacity: 70%;
+  z-index: 100;
 }

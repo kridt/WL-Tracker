@@ -13,13 +13,12 @@ export default function LoadingOverlay({ show }) {
               opacity: "50%",
               height: "100vh",
               width: "100vw",
+              zIndex: "999",
             }}
             className="fa-4x"
           >
             <i
-              style={{
-                marginTop: "5em",
-              }}
+              style={{ marginLeft: "45vw", marginTop: "45vh" }}
               className="fas fa-spinner fa-spin"
             ></i>
           </div>
