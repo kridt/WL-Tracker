@@ -35,6 +35,7 @@ export default function AddMatch() {
     const shotPercentOponent = parseInt(e.target.shotPercentOponent?.value);
     const expectedGoals = parseInt(e.target.expectedGoals?.value);
     const expectedGoalsOponent = parseInt(e.target.expectedGoalsOponent?.value);
+    const uid = uuid;
 
     if (goalsFor - goalOpp < 0) {
       setWin(false);
@@ -45,14 +46,13 @@ export default function AddMatch() {
     }
 
     const data = {
-      win,
       goalOpp,
       goalsFor,
       ballPos,
       ballPosOpp,
       freeWin,
       rageQuit,
-      id: uuid,
+      id: uid,
       advanStats,
       week: weekNumber,
       usersId: currentUser?.uid,
@@ -69,7 +69,18 @@ export default function AddMatch() {
         expectedGoalsOponent,
       },
     };
-    setLoading(true);
+
+    firestoreDb
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("wlResults")
+      .doc(uid)
+      .set({
+        week: weekNumber,
+        data,
+      });
+
+    /* setLoading(true);
 
     firestoreDb
       .collection("users")
@@ -79,6 +90,7 @@ export default function AddMatch() {
         week: weekNumber,
         data,
       });
+      */
     setLoading(false);
     navigate("/");
   }

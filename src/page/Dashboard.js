@@ -1,6 +1,7 @@
 import Countdown from "countdown-js";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MatchMiniPreview from "../components/MatchMiniPreview";
 import Nav from "../components/Nav";
 import { useAuth } from "../context/AuthContext";
 import { firestoreDb } from "../firebase";
@@ -15,13 +16,13 @@ export default function Dashboard() {
   useEffect(() => {
     firestoreDb
       .collection("users")
-      .doc(currentUser.uid)
+      .doc(currentUser?.uid)
       .collection("wlResults")
       .get()
       .then((data) => {
-        data.forEach((e) => {
+        /* data.forEach((e) => {
           console.log(e.data());
-        });
+        }); */
         setAllMatches(data);
       });
   }, []);
@@ -34,6 +35,16 @@ export default function Dashboard() {
       <Link className="addMatch" to={"/addMatch"}>
         Tilføj kamp
       </Link>
+      <div>
+        {allMatches &&
+          allMatches.docs?.map((e) => {
+            const match = e.data();
+            console.log(match);
+            return (
+              <MatchMiniPreview key={match.data?.id} matchInfomation={match} />
+            );
+          })}
+      </div>
     </div>
   );
 }
