@@ -9,6 +9,7 @@ import ForgotPassword from "./functions/ForgotPassword";
 import UpdateProfile from "./functions/UpdateProfile";
 import Profile from "./page/Profile";
 import AllWls from "./page/AllWls";
+import AddMatch from "./page/AddMatch";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route element={<ProtectedRoute />}>
               <Route path="/profil" element={<Profile />} />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/addMatch" element={<AddMatch />} />
             </Route>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />

@@ -1,0 +1,63 @@
+import React, { useState } from "react";
+import "./AddMatch.scss";
+
+export default function AddMatch() {
+  const [ballP, setBallP] = useState(50);
+  console.log(ballP);
+
+  return (
+    <div className="addMatch">
+      <h1>Tilføj kamp</h1>
+
+      <form>
+        <div>
+          <input
+            className="goals"
+            type="tel"
+            name="goalsFor"
+            maxLength={2}
+            defaultValue={0}
+          />
+          <label htmlFor="goals">Mål</label>
+          <input
+            className="goals"
+            type="tel"
+            name="goalsAgains"
+            maxLength={2}
+            defaultValue={0}
+          />
+        </div>
+        <div>
+          {/* <input
+            name="ballPossesion"
+            type={"tel"}
+            maxLength={2}
+            onChange={(e) => setBallP(e.target.value)}
+            defaultValue={50}
+          /> */}
+          <p>{100 - ballP}</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "absolute",
+              left: "9.5em",
+            }}
+          >
+            <label>Boldbesiddelse %</label>
+            <input
+              style={{ width: "100px" }}
+              type={"range"}
+              min={1}
+              max={99}
+              onChange={(e) => {
+                setBallP(e.target.value);
+              }}
+            />
+          </div>
+          <p>{ballP}</p>
+        </div>
+      </form>
+    </div>
+  );
+}
