@@ -46,10 +46,10 @@ export default function AddMatch() {
           >
             <label>Boldbesiddelse %</label>
             <input
-              style={{ width: "100px" }}
+              style={{ width: "100%" }}
               type={"range"}
-              min={1}
-              max={99}
+              min={25}
+              max={75}
               onChange={(e) => {
                 setBallP(e.target.value);
               }}
