@@ -14,6 +14,8 @@ export default function LoadingOverlay({ show }) {
               height: "100vh",
               width: "100vw",
               zIndex: "999",
+              margin: "0 !important",
+              padding: "0 !important",
             }}
             className="fa-4x"
           >

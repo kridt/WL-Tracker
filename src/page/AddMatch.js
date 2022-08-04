@@ -74,12 +74,20 @@ export default function AddMatch() {
       .collection("users")
       .doc(currentUser.uid)
       .collection("wlResults")
-      .doc(uid)
+      .doc(`${weekNumber + "_" + uid}`)
       .set({
         week: weekNumber,
         data,
       });
-
+    /*  firestoreDb
+      .collection("users")
+      .doc(currentUser?.uid)
+      .collection("wlResults")
+      .doc(weekNumber)
+      .set({
+        week: weekNumber,
+        data,
+      }); */
     /* setLoading(true);
 
     firestoreDb

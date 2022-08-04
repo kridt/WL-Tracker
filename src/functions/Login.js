@@ -44,7 +44,7 @@ export default function Login() {
         <div>
           <input
             ref={emailRef}
-            type={"text"}
+            type={"email"}
             name="email"
             placeholder="Din email"
             required

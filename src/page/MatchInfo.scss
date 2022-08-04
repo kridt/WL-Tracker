@@ -1,0 +1,36 @@
+.matchInfo {
+  margin: 0 1em;
+  .topDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .result {
+      display: flex;
+    }
+  }
+}
+
+.home_box,
+.away_box {
+  height: 10px;
+  width: 49.5%;
+  background-color: grey;
+  display: flex;
+}
+
+.home_box {
+  justify-content: end;
+}
+
+.home_box_fill,
+.away_box_fill {
+  height: 10px;
+}
+
+.home_box_fill {
+  background-color: rgb(217, 16, 84);
+}
+
+.away_box_fill {
+  background-color: cornflowerblue;
+}
