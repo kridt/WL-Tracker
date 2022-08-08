@@ -16,6 +16,7 @@ export default function AddMatch() {
   const uuid = v4();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const date = new Date().getTime();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,6 +47,7 @@ export default function AddMatch() {
     }
 
     const data = {
+      time: date,
       goalOpp,
       goalsFor,
       ballPos,

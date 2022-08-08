@@ -1,8 +1,6 @@
-import Countdown from "countdown-js";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Last5results from "../components/Last5results";
-import MatchMiniPreview from "../components/MatchMiniPreview";
 import Nav from "../components/Nav";
 import { useAuth } from "../context/AuthContext";
 import { firestoreDb } from "../firebase";
@@ -21,21 +19,21 @@ export default function Dashboard() {
       .collection("wlResults")
       .get()
       .then((data) => {
-        /* data.forEach((e) => {
+        data.forEach((e) => {
           console.log(e.data());
-        }); */
+        });
 
         if (data.size === 1) {
           console.log("single");
           setSingle(true);
         }
-        if (data.size == !1) {
+        if (data.size === !1) {
           console.log("flertal");
         }
 
         setAllMatches(data);
       });
-  }, [setAllMatches, firestoreDb]);
+  }, [setAllMatches, currentUser]);
 
   return (
     <div className="dashboard">

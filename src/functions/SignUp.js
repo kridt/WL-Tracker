@@ -6,6 +6,7 @@ import { firestoreDb } from "../firebase";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function SignUp() {
+  const [showHidePassword, setShowHidePassword] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -66,16 +67,23 @@ export default function SignUp() {
         <div>
           <input
             ref={passwordRef}
-            type={"password"}
+            type={showHidePassword ? "text" : "password"}
             name="password"
             placeholder="Vælg en adgangskode"
             required
           />
         </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <p>Vis adgangskode</p>
+          <input
+            type="checkbox"
+            onClick={() => setShowHidePassword(!showHidePassword)}
+          />
+        </div>
         <div>
           <input
             ref={passwordConfirmRef}
-            type={"password"}
+            type={showHidePassword ? "text" : "password"}
             name="passwordConfirm"
             placeholder="Gentag adgangskode"
             required
