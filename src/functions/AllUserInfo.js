@@ -19,7 +19,7 @@ export default function AllUserInfo() {
       .then((data) => {
         setUserData(data.data());
       });
-  }, []);
+  }, [ currentUser]);
 
   return allUserData;
 }

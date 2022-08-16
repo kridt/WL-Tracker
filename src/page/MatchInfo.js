@@ -21,7 +21,7 @@ export default function MatchInfo() {
       .then((e) => {
         setMatch(e.data());
       });
-  }, [setMatch, matchId, firestoreDb, currentUser]);
+  }, [setMatch, matchId, currentUser]);
 
   console.log(match);
   return (

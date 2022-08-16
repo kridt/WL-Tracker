@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./SignUp.scss";
 import { Link, useNavigate } from "react-router-dom";
-import WeekNumber from "../components/WeekNumber";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function Login() {

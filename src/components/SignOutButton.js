@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export default function SignOutButton() {
-  const { currentUser, logOut } = useAuth();
+  const { logOut } = useAuth();
   const [error, setError] = useState("");
 
   async function handleLogout() {

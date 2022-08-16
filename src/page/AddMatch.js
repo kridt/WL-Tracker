@@ -1,5 +1,5 @@
 import { Switch } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./AddMatch.scss";
 import { v4 } from "uuid";
@@ -17,7 +17,7 @@ export default function AddMatch() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const date = new Date().getTime();
-
+console.log(win);
   async function handleSubmit(e) {
     e.preventDefault();
     const goalsFor = parseInt(e.target.goals.value);

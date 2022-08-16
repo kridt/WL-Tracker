@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { firestoreDb } from "../firebase";
@@ -6,6 +6,8 @@ import { firestoreDb } from "../firebase";
 export default function DeleteMatchButton({ matchId }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+
+  
 
   function deleteMatch() {
     if (window.confirm("Er du sikker på du  vil slette kampen?") === true) {

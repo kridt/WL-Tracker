@@ -12,6 +12,16 @@ export default function Dashboard() {
 
   const { currentUser } = useAuth();
 
+
+  function testFunc(e) {
+    e.preventDefault()
+    console.log(URL.createObjectURL(e.target.img.files[0]));
+    firestoreDb.collection("users").doc(currentUser.uid).update({
+      
+      profilePic: URL.createObjectURL(e.target.img.files[0])
+    })
+  }
+
   useEffect(() => {
     firestoreDb
       .collection("users")
@@ -48,6 +58,17 @@ export default function Dashboard() {
       <Link className="addMatch" to={"/addMatch"}>
         Tilføj kamp
       </Link>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <form onSubmit={(e) => testFunc(e)}>
+        <input name="img" type={"file"} accept=".png, .jpeg" />
+        <input type={"submit"} value="test img thingy" />
+      </form>
+      
     </div>
   );
 }

@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./SignUp.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { firestoreDb } from "../firebase";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function SignUp() {
@@ -11,7 +10,7 @@ export default function SignUp() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const onlineIdRef = useRef();
-  const { signUp, currentUser } = useAuth();
+  const { signUp } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
