@@ -9,18 +9,28 @@ import "./Dashboard.scss";
 export default function Dashboard() {
   const [single, setSingle] = useState(false);
   const [allMatches, setAllMatches] = useState([]);
+  const [activeWl, setActiveWl] = useState(
+    JSON.parse(localStorage.getItem("activeWl"))
+  );
 
   const { currentUser } = useAuth();
 
-
-  function testFunc(e) {
-    e.preventDefault()
-    console.log(URL.createObjectURL(e.target.img.files[0]));
-    firestoreDb.collection("users").doc(currentUser.uid).update({
-      
-      profilePic: URL.createObjectURL(e.target.img.files[0])
-    })
-  }
+  /* useEffect(() => {
+    firestoreDb
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then((e) => {
+        if (
+          !e.data().activeWl === JSON.parse(localStorage.getItem("activeWl"))
+        ) {
+          setActiveWl(e.data().activeWl);
+          localStorage.setItem("activeWl", e.data().activeWl);
+        }
+        console.log(e.data().activeWl);
+        console.log(localStorage.getItem("activeWl"));
+      });
+  }, [activeWl]); */
 
   useEffect(() => {
     firestoreDb
@@ -45,30 +55,46 @@ export default function Dashboard() {
       });
   }, [setAllMatches, currentUser]);
 
+  function startWl() {
+    console.log("ja");
+    localStorage.setItem("activeWl", true);
+    setActiveWl(true);
+  }
+
+  function endWl() {
+    localStorage.setItem("activeWl", false);
+    setActiveWl(false);
+  }
   return (
     <div className="dashboard">
       <Nav />
-      <h1>Nuværende Weekend Liga</h1>
-      <p>
-        Du har spillet {allMatches.size} {single ? "Kamp" : "kampe"}
-      </p>
-      <div>
-        <Last5results />
-      </div>
-      <Link className="addMatch" to={"/addMatch"}>
-        Tilføj kamp
-      </Link>
 
-      <br />
-      <br />
-      <br />
-      <br />
+      {activeWl ? (
+        <>
+          <h1>Nuværende Weekend Liga</h1>
+          <p>
+            Du har spillet {allMatches.size} {single ? "Kamp" : "kampe"}
+          </p>
+          <div>
+            <Last5results />
+          </div>
+          <Link className="addMatch" to={"/addMatch"}>
+            Tilføj kamp
+          </Link>
 
-      <form onSubmit={(e) => testFunc(e)}>
-        <input name="img" type={"file"} accept=".png, .jpeg" />
-        <input type={"submit"} value="test img thingy" />
-      </form>
-      
+          <br />
+          <br />
+          <br />
+          <br />
+          <button onClick={() => endWl()}>Slut wl</button>
+        </>
+      ) : (
+        <>
+          <h1>ingen aktiv wl</h1>
+
+          <button onClick={() => startWl()}>Start Wl?</button>
+        </>
+      )}
     </div>
   );
 }

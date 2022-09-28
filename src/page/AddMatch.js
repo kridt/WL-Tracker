@@ -17,7 +17,7 @@ export default function AddMatch() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const date = new Date().getTime();
-console.log(win);
+  console.log(win);
   async function handleSubmit(e) {
     e.preventDefault();
     const goalsFor = parseInt(e.target.goals.value);
@@ -81,6 +81,7 @@ console.log(win);
         week: weekNumber,
         data,
       });
+
     /*  firestoreDb
       .collection("users")
       .doc(currentUser?.uid)
