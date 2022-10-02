@@ -74,24 +74,16 @@ export default function AddMatch() {
 
     firestoreDb
       .collection("users")
-      .doc(currentUser.uid)
-      .collection("wlResults")
-      .doc(`${weekNumber + "_" + uid}`)
-      .set({
-        week: weekNumber,
-        data,
-      });
-
-    /*  firestoreDb
-      .collection("users")
       .doc(currentUser?.uid)
       .collection("wlResults")
       .doc(weekNumber)
-      .set({
+      .add({
         week: weekNumber,
         data,
-      }); */
-    /* setLoading(true);
+      });
+    setLoading(true);
+
+    /* 
 
     firestoreDb
       .collection("users")
@@ -111,11 +103,7 @@ export default function AddMatch() {
       <LoadingOverlay show={loading} />
       <h1>Tilføj kamp</h1>
 
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <p>Mig</p>
           <p>opponent</p>
@@ -397,6 +385,7 @@ export default function AddMatch() {
             padding: "1em 2em",
             borderRadius: "20px",
             marginLeft: "6.5em",
+            zIndex: 999,
           }}
           type="submit"
           value="Tilføj Kamp"

@@ -13,6 +13,9 @@ export default function Dashboard() {
     JSON.parse(localStorage.getItem("activeWl"))
   );
 
+  const tester = [];
+
+  console.log(tester);
   const { currentUser } = useAuth();
 
   /* useEffect(() => {
@@ -59,11 +62,25 @@ export default function Dashboard() {
     console.log("ja");
     localStorage.setItem("activeWl", true);
     setActiveWl(true);
+    firestoreDb
+      .collection("users")
+      .doc(currentUser.uid)
+      .update({
+        activeWl: true,
+      })
+      .then((e) => console.log("wl started"));
   }
 
   function endWl() {
     localStorage.setItem("activeWl", false);
     setActiveWl(false);
+    firestoreDb
+      .collection("users")
+      .doc(currentUser.uid)
+      .update({
+        activeWl: false,
+      })
+      .then((e) => console.log("wl ended"));
   }
   return (
     <div className="dashboard">
