@@ -17,7 +17,7 @@ export default function AddMatch() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const date = new Date().getTime();
-  console.log(win);
+
   async function handleSubmit(e) {
     e.preventDefault();
     const goalsFor = parseInt(e.target.goals.value);
@@ -76,11 +76,12 @@ export default function AddMatch() {
       .collection("users")
       .doc(currentUser?.uid)
       .collection("wlResults")
-      .doc(weekNumber)
-      .add({
+      .doc(weekNumber + "_" + uid)
+      .set({
         week: weekNumber,
         data,
       });
+    console.log(data);
     setLoading(true);
 
     /* 
@@ -287,92 +288,7 @@ export default function AddMatch() {
             </>
           ) : (
             <>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <div className="overlay"></div>
-                <div
-                  style={{
-                    margin: "0 auto",
-                  }}
-                  className="advanStats"
-                >
-                  <input
-                    type="tel"
-                    name="passes"
-                    maxLength={2}
-                    placeholder={0}
-                  />
-                  <label style={{ margin: "0 3em" }} htmlFor="goals">
-                    Afleveringer
-                  </label>
-                  <input
-                    type="tel"
-                    name="passesOponent"
-                    maxLength={2}
-                    placeholder={0}
-                  />
-                </div>
-                <div>
-                  <input
-                    name="passPercent"
-                    type={"tel"}
-                    maxLength={2}
-                    placeholder={"50"}
-                  />
-
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <label
-                      style={{ margin: "1.5em 2.85em", fontSize: ".97em" }}
-                    >
-                      Afleverings %
-                    </label>
-                  </div>
-                  <input
-                    name="passPercentOponent"
-                    type={"tel"}
-                    maxLength={2}
-                    placeholder={"50"}
-                  />
-                </div>
-                <div>
-                  <input type="tel" maxLength={2} name="shots" />
-                  <label style={{ margin: "0 3.36em" }} htmlFor="shots">
-                    Antal skud
-                  </label>
-                  <input type="tel" maxLength={2} name="shotsOponent" />
-                </div>
-                <div>
-                  <input type="tel" maxLength={2} name="shotPercemt" />
-                  <label style={{ margin: "1.5em 4.03em" }} htmlFor="shots">
-                    Skud %
-                  </label>
-                  <input
-                    type="number"
-                    maxLength={3}
-                    name="shotPercentOponent"
-                  />
-                </div>
-                <div>
-                  <input type="number" maxLength={3} name="expectetGoals" />
-                  <label
-                    style={{ margin: "0 4.1em", fontSize: ".8em" }}
-                    htmlFor="shots"
-                  >
-                    Forventet mål
-                  </label>
-                  <input type="tel" maxLength={2} name="expectedGoalsOponent" />
-                </div>
-              </div>
+              <p>Ingen avanceret statistikker</p>
             </>
           )}
         </fieldset>
@@ -385,7 +301,6 @@ export default function AddMatch() {
             padding: "1em 2em",
             borderRadius: "20px",
             marginLeft: "6.5em",
-            zIndex: 999,
           }}
           type="submit"
           value="Tilføj Kamp"
