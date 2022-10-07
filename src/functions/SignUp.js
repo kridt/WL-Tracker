@@ -14,6 +14,8 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
+  const [bigLetter, setBigLetter] = useState(false);
+  const [sixDig, setSixDig] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,6 +39,29 @@ export default function SignUp() {
     }
 
     setLoading(false);
+  }
+
+  function checkUppercase(str) {
+    for (var i = 0; i < str.length; i++) {
+      if (
+        str.charAt(i) == str.charAt(i).toUpperCase() &&
+        str.charAt(i).match(/[a-z]/i)
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function passwordGood(e) {
+    var string = e.target.value;
+    if (e.target.value.length >= 6) {
+      setSixDig(true);
+    } else {
+      setSixDig(false);
+    }
+
+    setBigLetter(checkUppercase(string));
   }
 
   return (
@@ -64,12 +89,22 @@ export default function SignUp() {
           />
         </div>
         <div>
+          <div>
+            Din adgangskode skal indeholde
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <div style={{ color: bigLetter ? "green" : "red" }}>
+                Stort bogstav
+              </div>
+              <div style={{ color: sixDig ? "green" : "red" }}>6 tegn</div>
+            </div>
+          </div>
           <input
             ref={passwordRef}
             type={showHidePassword ? "text" : "password"}
             name="password"
             placeholder="Vælg en adgangskode"
             required
+            onChange={(e) => passwordGood(e)}
           />
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
