@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./AddMatch.scss";
 import { v4 } from "uuid";
 import { weekNumber } from "../components/WeekNumber";
-import { firestoreDb } from "../firebase";
+import { firestoreDb, realDatabase } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import LoadingOverlay from "../components/LoadingOverlay";
+import { set, ref } from "firebase/database";
+import { useEffect } from "react";
 
 export default function AddMatch() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,19 @@ export default function AddMatch() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const date = new Date().getTime();
+  const [matchesNumber, setMatchesNumber] = useState([]);
+  const [point, setPoint] = useState(1);
+
+  useEffect(() => {
+    firestoreDb
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("wlResults")
+      .get()
+      .then((e) => {
+        setMatchesNumber(e.size);
+      });
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,12 +53,14 @@ export default function AddMatch() {
     const expectedGoalsOponent = parseInt(e.target.expectedGoalsOponent?.value);
     const uid = uuid;
 
-    if (goalsFor - goalOpp < 0) {
+    if (goalsFor < goalOpp) {
       setWin(false);
+      setPoint(1);
     }
 
-    if (goalsFor - goalOpp > 0) {
+    if (goalsFor > goalOpp) {
       setWin(true);
+      setPoint(4);
     }
 
     const data = {
@@ -54,7 +71,6 @@ export default function AddMatch() {
       ballPosOpp,
       freeWin,
       rageQuit,
-      id: uid,
       advanStats,
       week: weekNumber,
       usersId: currentUser?.uid,
@@ -79,11 +95,20 @@ export default function AddMatch() {
       .doc(weekNumber + "_" + uid)
       .set({
         week: weekNumber,
+        matchNumber: matchesNumber + 1,
+        point: point,
         data,
       });
     console.log(data);
     setLoading(true);
 
+    /* 
+    set(ref(realDatabase, "/matches"), {
+      matchId: uid,
+      time: new Date().getTime(),
+      data,
+    });
+ */
     /* 
 
     firestoreDb

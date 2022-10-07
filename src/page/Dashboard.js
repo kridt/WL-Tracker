@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Last5results from "../components/Last5results";
 import Nav from "../components/Nav";
+import RanksSystem from "../components/RanksSystem";
 import { useAuth } from "../context/AuthContext";
 import { firestoreDb } from "../firebase";
 import "./Dashboard.scss";
@@ -12,10 +13,8 @@ export default function Dashboard() {
   const [activeWl, setActiveWl] = useState(
     JSON.parse(localStorage.getItem("activeWl"))
   );
+  const [currentWl, setCurrentWl] = useState([]);
 
-  const tester = [];
-
-  console.log(tester);
   const { currentUser } = useAuth();
 
   /* useEffect(() => {
@@ -42,8 +41,10 @@ export default function Dashboard() {
       .collection("wlResults")
       .get()
       .then((data) => {
+        var current = [];
+
         data.forEach((e) => {
-          console.log(e.data());
+          current.push(e.data());
         });
 
         if (data.size === 1) {
@@ -55,6 +56,7 @@ export default function Dashboard() {
         }
 
         setAllMatches(data);
+        setCurrentWl(current);
       });
   }, [setAllMatches, currentUser]);
 
@@ -101,6 +103,7 @@ export default function Dashboard() {
 
           <br />
           <br />
+          <RanksSystem wl={currentWl} />
           <br />
           <br />
           <button onClick={() => endWl()}>Slut wl</button>

@@ -4,6 +4,8 @@ import { auth, firestoreDb } from "../firebase";
 
 export default function Last5results() {
   const [allWl, setAllWl] = useState([]);
+  var points = 0;
+
   var last5 = allWl.slice(-5);
   useEffect(() => {
     firestoreDb
@@ -16,7 +18,7 @@ export default function Last5results() {
         e.forEach((e) => {
           wl.push(e.data());
         });
-        setAllWl(wl);
+        setAllWl(wl.sort((a, b) => a.matchNumber - b.matchNumber));
       });
   }, []);
 
@@ -36,6 +38,7 @@ export default function Last5results() {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
+          flexDirection: "row-reverse",
         }}
       >
         {last5?.map((e) => {
@@ -43,8 +46,14 @@ export default function Last5results() {
 
           if (e.data.goalsFor > e.data.goalOpp) {
             win = true;
+            points = points + 4;
           }
 
+          if (e.data.goalsFor < e.data.goalOpp) {
+            win = false;
+            points = points + 1;
+          }
+          console.log(points);
           return (
             <div>
               {win ? (
