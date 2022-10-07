@@ -24,6 +24,14 @@ export default function SignUp() {
       return setError("Adgangskoderne er ikke ens");
     }
 
+    if (sixDig === false) {
+      return setError("Din adgangskode skal mindst indeholde mindst 6 tegn");
+    }
+
+    if (bigLetter === false) {
+      return setError("Din adgangskode skal indeholde mindst 1 stort bogstav");
+    }
+
     try {
       setError("");
       setLoading(true);
